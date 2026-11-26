@@ -1,0 +1,153 @@
+/* Zinc — couche shadcn/ui pour Tailwind v4.
+   Branche les tokens Zinc sur les variables et les utilitaires qu'attendent
+   les composants shadcn, pour qu'ils prennent le style Zinc sans réécriture.
+
+   Ordre d'import dans la feuille de l'app :
+     @import "tailwindcss";
+     @import "@zinc/ui/zinc.css";
+     @import "@zinc/ui/shadcn.css";
+
+   Une seule collision de nom : pour shadcn, `accent` est un fond de survol
+   teinté ; pour Zinc, c'est l'aplat. La variable CSS `--accent` reste celle de
+   Zinc ; seul l'utilitaire Tailwind `bg-accent` est branché sur
+   `surface-muted`. L'aplat Zinc s'écrit `bg-primary` côté Tailwind. */
+
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
+/* Variables shadcn → tokens Zinc. Redéclarées sur chaque zone de thème pour
+   suivre une zone sombre posée dans une page claire (et inversement). */
+:root,
+[data-theme],
+.dark {
+  --background: var(--surface);
+  --foreground: var(--text);
+  --card: var(--surface-subtle);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary: var(--accent);
+  --primary-foreground: var(--on-accent);
+  --secondary: var(--surface-muted);
+  --secondary-foreground: var(--text);
+  --muted: var(--surface-muted);
+  --muted-foreground: var(--text-muted);
+  /* --accent : volontairement non redéfini (voir en tête). */
+  --accent-foreground: var(--text);
+  --destructive: var(--danger);
+  --destructive-foreground: var(--on-danger);
+  /* --border : même nom, même sens. */
+  --input: var(--border-control);
+  --ring: var(--focus-ring);
+  --chart-1: var(--accent);
+  --chart-2: var(--info);
+  --chart-3: var(--success);
+  --chart-4: var(--warning);
+  --chart-5: var(--text-muted);
+  --sidebar: var(--bg);
+  --sidebar-foreground: var(--text);
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: var(--on-accent);
+  --sidebar-accent: var(--surface);
+  --sidebar-accent-foreground: var(--text);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--focus-ring);
+}
+
+@theme inline {
+  /* Couleurs shadcn */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--surface-muted);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Tokens Zinc sous leur propre nom (bg-surface, text-text-muted, …) */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-border-strong: var(--border-strong);
+  --color-border-control: var(--border-control);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-text: var(--accent-text);
+  --color-on-accent: var(--on-accent);
+  --color-focus-ring: var(--focus-ring);
+  --color-danger: var(--danger);
+  --color-on-danger: var(--on-danger);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+
+  /* Coins : mêmes noms que Tailwind, valeurs Zinc. */
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-lg);
+  --radius-2xl: var(--radius-lg);
+  --radius-full: var(--radius-full);
+
+  /* Ombres : pas d'ombre sur les contrôles ; ce qui flotte prend shadow-pop. */
+  --shadow-xs: 0 0 #0000;
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-pop);
+  --shadow-lg: var(--shadow-pop);
+  --shadow-xl: var(--shadow-pop);
+  --shadow-pop: var(--shadow-pop);
+
+  /* Polices */
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
+  /* Hauteurs de contrôle et mesures (h-control-md, w-sidebar, …) */
+  --spacing-control-sm: var(--control-sm);
+  --spacing-control-md: var(--control-md);
+  --spacing-control-lg: var(--control-lg);
+  --spacing-sidebar: var(--sidebar-width);
+  --spacing-rail: var(--rail-width);
+  --spacing-header: var(--header-height);
+  --spacing-list-pane: var(--list-pane-width);
+  --container-content: var(--content-max);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  :focus-visible {
+    outline-color: var(--focus-ring);
+  }
+}
