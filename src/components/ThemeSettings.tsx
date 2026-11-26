@@ -90,7 +90,7 @@ export function ThemeSettings({ value, onChange, labels: custom, className }: Th
               />
             );
           })}
-          <label className="zn-swatch-custom" aria-checked={presetId === null} title={labels.custom}>
+          <label className="zn-swatch-custom" data-checked={presetId === null ? "" : undefined} title={labels.custom}>
             <input
               type="color"
               aria-label={labels.custom}

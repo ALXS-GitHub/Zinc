@@ -127,6 +127,12 @@
   --shadow-xl: var(--shadow-pop);
   --shadow-pop: var(--shadow-pop);
 
+  /* Échelle typographique : text-xs / text-sm des composants shadcn → caption / body. */
+  --text-xs: var(--type-caption-size);
+  --text-xs--line-height: var(--type-caption-line);
+  --text-sm: var(--type-body-size);
+  --text-sm--line-height: var(--type-body-line);
+
   /* Polices */
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
@@ -149,5 +155,24 @@
   }
   :focus-visible {
     outline-color: var(--focus-ring);
+  }
+}
+
+/* L'accent en texte ou en icône passe par accent-text (lisible), jamais par
+   l'aplat : les liens shadcn (`text-primary`) restent lisibles sur un accent clair. */
+@layer utilities {
+  .text-primary,
+  .hover\:text-primary:hover {
+    color: var(--accent-text);
+  }
+  /* shadcn écrit en blanc sur destructive ; Zinc choisit on-danger (lisible dans les deux modes). */
+  .bg-destructive.text-white {
+    color: var(--on-danger);
+  }
+  .fill-primary {
+    fill: var(--accent-text);
+  }
+  .stroke-primary {
+    stroke: var(--accent-text);
   }
 }

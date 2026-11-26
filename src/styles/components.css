@@ -745,7 +745,7 @@
     cursor: pointer;
     box-sizing: border-box;
   }
-  .zn-swatch-custom[aria-checked="true"] {
+  .zn-swatch-custom[data-checked] {
     outline: 2px solid var(--text);
     outline-offset: 2px;
     color: var(--text);
