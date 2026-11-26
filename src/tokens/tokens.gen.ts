@@ -38,7 +38,7 @@ export const color = {
   },
   "border-control": {
     "light": "#888b8e",
-    "dark": "#626569"
+    "dark": "#696c70"
   },
   "text": {
     "light": "#1b1e23",

@@ -85,7 +85,7 @@ const NEUTRAL_STEPS: Record<ThemeMode, Record<NeutralName, readonly [number, num
     "surface-sunken": [0.15, 1.2],
     border: [0.29, 1.4],
     "border-strong": [0.355, 1.4],
-    "border-control": [0.505, 1.2],
+    "border-control": [0.53, 1.2],
     text: [0.95, 0.5],
     "text-muted": [0.75, 1],
     "text-faint": [0.645, 1],
