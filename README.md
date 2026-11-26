@@ -47,3 +47,12 @@ import { Shell, Sidebar, NavItem, Panel, PageHeader, Button, useZincTheme } from
 | `bun run demo` | démo en local |
 | `bun run shots` | captures de la démo (après `build:demo`) dans `.showcase/shots/` |
 | `bun run build` | tokens à jour, typecheck, tests, build de la démo, vitrine |
+
+## Synchroniser la vitrine
+
+La vitrine est l'artefact Design System « Zinc » (https://claude.ai/artifact/E2cuWCdAhky9uczetJqcsi), en lecture seule (`"editing": "code"` dans son index).
+
+1. Modifier le dépôt, commiter.
+2. `bun run build` (construit aussi `.showcase/project/`).
+3. Dans Claude Code : `/design-sync` vers cet artefact (même lien, jamais un nouveau). Sans la commande, la même opération se fait avec l'outil d'artefacts : relire `project/design-system.json`, le republier avec ses clés, `editing: "code"` et un `lastChange` à jour, et publier tout `.showcase/project/` (racine `.showcase`).
+4. Vérifier que les empreintes publiées correspondent à `.showcase/project/`.
