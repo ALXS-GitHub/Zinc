@@ -1,0 +1,7 @@
+node_modules/
+dist/
+demo/dist/
+.showcase/
+*.tmp.ts
+*.log
+.DS_Store
