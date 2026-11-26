@@ -1,0 +1,31 @@
+/* Zinc — base. Dans la couche `base` (celle de Tailwind s'il est présent). */
+@layer base {
+  html,
+  body,
+  [data-variant] {
+    font-family: var(--font-sans);
+  }
+
+  body {
+    margin: 0;
+    font-size: var(--type-body-size);
+    line-height: var(--type-body-line);
+    font-weight: var(--type-body-weight);
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+  }
+
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-mono);
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+  }
+}

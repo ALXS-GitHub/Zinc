@@ -1,0 +1,8 @@
+/* Zinc — polices auto-hébergées (@fontsource-variable).
+   Une @font-face ne se télécharge que si elle est utilisée : Plus Jakarta Sans
+   et Outfit ne coûtent rien tant qu'aucune zone n'est en variante Tempéré.
+   Secours Windows dans les piles de tokens.json : Segoe UI, Cascadia Mono, Consolas. */
+@import "@fontsource-variable/hanken-grotesk";
+@import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/plus-jakarta-sans";
+@import "@fontsource-variable/outfit";

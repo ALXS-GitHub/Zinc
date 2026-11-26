@@ -1,0 +1,8 @@
+/* Zinc — point d'entrée CSS complet : polices, tokens, base, composants,
+   variantes. À importer une fois, avant les styles de l'app (et après
+   `tailwindcss` si l'app utilise Tailwind, puis `@zinc/ui/shadcn.css`). */
+@import "./fonts.css";
+@import "./tokens.css";
+@import "./base.css";
+@import "./components.css";
+@import "./variants.css";

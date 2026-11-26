@@ -128,6 +128,34 @@ for (const g of tokens.type.groups) {
   }
 }
 css.push("}", "");
+
+// Variantes de style : surcharges de tokens (hors couche, pour battre :root).
+// Les --type-*-family sont redéclarées pour suivre --font-* dans une zone.
+interface Variant {
+  name: string;
+  tokens: Record<string, string>;
+}
+const variants = Object.entries((tokens.variants ?? {}) as Record<string, Variant | string>).filter(
+  (e): e is [string, Variant] => typeof e[1] === "object",
+);
+const flatNames = new Set(FLAT_FAMILIES.flatMap((k) => family(k).tokens.map((t) => t.name)));
+const fontNames = new Set(Object.keys(tokens.type.families).map((k) => `font-${k}`));
+if (variants.length) {
+  css.push("/* Variantes de style (data-variant sur <html> ou sur un conteneur). Couche Style seulement. */");
+}
+for (const [id, v] of variants) {
+  css.push(`[data-variant="${id}"] {`);
+  for (const [name, value] of Object.entries(v.tokens)) {
+    if (!flatNames.has(name) && !fontNames.has(name)) throw new Error(`Variante ${id} : token inconnu ${name}`);
+    const fam = /^\{(.+)\}$/.exec(value)?.[1];
+    if (fam && !(fam in tokens.type.families)) throw new Error(`Variante ${id} : famille inconnue ${value}`);
+    css.push(`  --${name}: ${fam ? `var(--font-${fam})` : value};`);
+  }
+  for (const g of tokens.type.groups) {
+    for (const s of g.styles) css.push(`  --type-${s.name}-family: var(--font-${s.family ?? g.family});`);
+  }
+  css.push("}", "");
+}
 const cssText = `${css.join("\n")}`;
 
 // --- TypeScript --------------------------------------------------------------
@@ -190,6 +218,10 @@ export type FontFamilyName = keyof typeof fontFamilies;
 
 export const typeStyles = ${literal(typeStyles)} as const;
 export type TypeStyleName = keyof typeof typeStyles;
+
+/** Variantes de style et leurs surcharges de tokens. */
+export const variants = ${literal(Object.fromEntries(variants))} as const;
+export type VariantId = keyof typeof variants;
 
 export type TokenName =
   | ColorTokenName

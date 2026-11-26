@@ -1,0 +1,772 @@
+/* Zinc — composants, style « Panneau » (défaut).
+   Aucune valeur en dur : couleurs = tokens color, formes = radius / space /
+   size / type. Seuls restent en px les détails optiques sous la grille (filet
+   de 1 px, anneau de focus de 2 px, retrait de 2–3 px d'une piste).
+   Dans la couche `components` : les utilitaires Tailwind passent devant. */
+@layer components {
+  .zn-icon,
+  .zn-btn svg,
+  .zn-nav svg,
+  .zn-search svg,
+  .zn-menu-item svg,
+  .zn-select-trigger svg {
+    width: var(--icon-md);
+    height: var(--icon-md);
+    flex: none;
+  }
+
+  /* ---- Button ---------------------------------------------------------- */
+  .zn-btn {
+    font: inherit;
+    font-size: var(--type-label-size);
+    line-height: var(--type-label-line);
+    font-weight: var(--type-label-weight);
+    height: var(--control-md);
+    padding: 0 var(--space-3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition:
+      background-color 0.12s,
+      border-color 0.12s,
+      color 0.12s;
+  }
+  .zn-btn:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+  .zn-btn:disabled,
+  .zn-btn[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .zn-btn-primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .zn-btn-primary:hover:not(:disabled) {
+    background: var(--accent-hover);
+  }
+  .zn-btn-secondary {
+    background: var(--surface);
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+  .zn-btn-secondary:hover:not(:disabled) {
+    background: var(--surface-muted);
+  }
+  .zn-btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+  }
+  .zn-btn-ghost:hover:not(:disabled) {
+    background: var(--surface-muted);
+    color: var(--text);
+  }
+  .zn-btn-danger {
+    background: var(--danger);
+    color: var(--on-danger);
+  }
+  .zn-btn-sm {
+    height: var(--control-sm);
+    padding: 0 var(--space-2);
+  }
+  .zn-btn-lg {
+    height: var(--control-lg);
+    padding: 0 var(--space-4);
+  }
+  .zn-btn-icon {
+    width: var(--control-md);
+    padding: 0;
+  }
+  .zn-btn-sm.zn-btn-icon {
+    width: var(--control-sm);
+  }
+  .zn-btn-lg.zn-btn-icon {
+    width: var(--control-lg);
+  }
+
+  /* ---- Field ----------------------------------------------------------- */
+  .zn-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    min-width: 0;
+  }
+  .zn-field-label {
+    font-size: var(--type-label-size);
+    line-height: var(--type-label-line);
+    font-weight: var(--type-label-weight);
+    color: var(--text);
+  }
+  .zn-field-help,
+  .zn-field-error {
+    font-size: var(--type-caption-size);
+    line-height: var(--type-caption-line);
+    color: var(--text-muted);
+  }
+  .zn-field-error {
+    color: var(--danger);
+  }
+
+  .zn-input {
+    font: inherit;
+    font-family: var(--font-sans);
+    font-size: var(--type-body-size);
+    height: var(--control-md);
+    padding: 0 var(--space-3);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-control);
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+  }
+  textarea.zn-input {
+    height: auto;
+    min-height: calc(var(--control-md) * 2);
+    padding: var(--space-2) var(--space-3);
+    resize: vertical;
+  }
+  .zn-input::placeholder {
+    color: var(--text-faint);
+  }
+  .zn-input:focus-visible,
+  .zn-input:focus,
+  .zn-input[data-state="open"],
+  .zn-input.is-focus {
+    border-color: var(--focus-ring);
+    box-shadow: 0 0 0 1px var(--focus-ring);
+  }
+  .zn-input[aria-invalid="true"],
+  .zn-input.is-invalid {
+    border-color: var(--danger);
+  }
+  .zn-input:disabled,
+  .zn-input[data-disabled] {
+    opacity: 0.5;
+  }
+
+  /* Select (Radix) : déclencheur au gabarit d'un champ. */
+  .zn-select-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    text-align: left;
+    cursor: pointer;
+  }
+  .zn-select-trigger > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .zn-select-trigger[data-placeholder] > span {
+    color: var(--text-faint);
+  }
+  .zn-select-trigger svg {
+    color: var(--text-muted);
+  }
+
+  /* Search — exception assumée : pilule, control-lg. Même marge à gauche
+     (icône) et à droite (raccourci). */
+  .zn-search {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    height: var(--control-lg);
+    padding: 0 var(--space-3);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-control);
+    background: var(--surface);
+    color: var(--text-faint);
+    box-sizing: border-box;
+    width: 100%;
+    max-width: calc(var(--list-pane-width) + var(--space-8) * 2);
+    cursor: text;
+  }
+  .zn-search:focus-within {
+    border-color: var(--focus-ring);
+    box-shadow: 0 0 0 1px var(--focus-ring);
+  }
+  .zn-search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    background: transparent;
+    font: inherit;
+    font-family: var(--font-sans);
+    font-size: var(--type-body-size);
+    color: var(--text);
+  }
+  .zn-search input::placeholder {
+    color: var(--text-faint);
+  }
+  .zn-search input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .zn-kbd {
+    font-family: var(--font-mono);
+    font-size: var(--type-eyebrow-size);
+    line-height: var(--type-caption-line);
+    padding: 1px var(--space-1);
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--border);
+    background: var(--surface-muted);
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  /* ---- Tabs : piste segmentée, onglet actif posé en surface ------------ */
+  .zn-tabs-list {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    border-radius: var(--radius-md);
+    background: var(--surface-muted);
+  }
+  .zn-tab {
+    font: inherit;
+    font-size: var(--type-label-size);
+    line-height: var(--type-label-line);
+    font-weight: var(--type-label-weight);
+    height: calc(var(--control-md) - 6px);
+    padding: 0 var(--space-3);
+    border: 0;
+    border-radius: calc(var(--radius-md) - 3px);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+  .zn-tab:hover {
+    color: var(--text);
+  }
+  .zn-tab[data-state="active"],
+  .zn-tab[data-state="on"],
+  .zn-tab[aria-selected="true"] {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow:
+      0 0 0 1px var(--border),
+      var(--shadow-sm);
+  }
+  .zn-tab:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 1px;
+  }
+  .zn-tab:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .zn-count {
+    font-size: var(--type-caption-size);
+    color: var(--text-faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- Card ------------------------------------------------------------ */
+  .zn-card {
+    background: var(--surface-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-width: 0;
+    color: inherit;
+    text-decoration: none;
+    text-align: left;
+    font: inherit;
+  }
+  .zn-card.is-clickable {
+    cursor: pointer;
+    transition:
+      border-color 0.12s,
+      background-color 0.12s;
+  }
+  .zn-card.is-clickable:hover {
+    border-color: var(--border-strong);
+    background: var(--surface);
+  }
+  .zn-card.is-clickable:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+  .zn-card-head,
+  .zn-card-foot {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .zn-card-foot {
+    margin-top: var(--space-1);
+  }
+  .zn-card-title {
+    margin: 0;
+    font-size: var(--type-title-size);
+    line-height: var(--type-title-line);
+    font-weight: var(--type-title-weight);
+  }
+  .zn-card-meta {
+    font-family: var(--font-mono);
+    font-size: var(--type-code-size);
+    line-height: var(--type-code-line);
+    color: var(--text-muted);
+  }
+  .zn-card-desc {
+    margin: 0;
+    color: var(--text-muted);
+  }
+  .zn-spacer {
+    flex: 1;
+  }
+
+  /* ---- Chip de statut — exception assumée : pilule avec point ---------- */
+  .zn-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    height: var(--chip-height);
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-full);
+    font-size: var(--type-caption-size);
+    font-weight: var(--type-label-weight);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+  .zn-chip::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--zn-chip-dot, var(--text-faint));
+  }
+  .zn-chip svg {
+    width: var(--icon-sm);
+    height: var(--icon-sm);
+  }
+  .zn-chip-open {
+    --zn-chip-dot: var(--info);
+  }
+  .zn-chip-progress {
+    --zn-chip-dot: var(--warning);
+  }
+  .zn-chip-done {
+    --zn-chip-dot: var(--success);
+  }
+  .zn-chip-blocked {
+    --zn-chip-dot: var(--danger);
+  }
+
+  /* ---- Tag (classement) ----------------------------------------------- */
+  .zn-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    height: var(--tag-height);
+    padding: 0 var(--space-1);
+    border-radius: var(--radius-xs);
+    font-size: var(--type-caption-size);
+    background: var(--surface-muted);
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  /* ---- Switch (Radix) -------------------------------------------------- */
+  .zn-switch {
+    all: unset;
+    box-sizing: border-box;
+    position: relative;
+    flex: none;
+    width: var(--switch-width);
+    height: var(--switch-height);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-control);
+    background: var(--surface-muted);
+    cursor: pointer;
+    transition:
+      background-color 0.12s,
+      border-color 0.12s;
+  }
+  .zn-switch-thumb {
+    display: block;
+    width: calc(var(--switch-height) - 6px);
+    height: calc(var(--switch-height) - 6px);
+    border-radius: var(--radius-full);
+    background: var(--border-control);
+    transform: translateX(2px);
+    transition:
+      transform 0.12s,
+      background-color 0.12s;
+  }
+  .zn-switch[data-state="checked"] {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .zn-switch[data-state="checked"] .zn-switch-thumb {
+    background: var(--on-accent);
+    transform: translateX(calc(var(--switch-width) - var(--switch-height) + 2px));
+  }
+  .zn-switch:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+  .zn-switch[data-disabled] {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  /* ---- Checkbox (Radix) ------------------------------------------------ */
+  .zn-checkbox {
+    all: unset;
+    box-sizing: border-box;
+    flex: none;
+    width: var(--checkbox-size);
+    height: var(--checkbox-size);
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--border-control);
+    background: var(--surface);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--on-accent);
+    cursor: pointer;
+  }
+  .zn-checkbox[data-state="checked"],
+  .zn-checkbox[data-state="indeterminate"] {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .zn-checkbox svg {
+    width: calc(var(--checkbox-size) - 4px);
+    height: calc(var(--checkbox-size) - 4px);
+  }
+  .zn-checkbox:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+  .zn-checkbox[data-disabled] {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  /* Libellé cliquable à côté d'une case ou d'un interrupteur. */
+  .zn-check {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--type-body-size);
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  /* ---- Menu et liste déroulante (Radix) -------------------------------- */
+  .zn-menu {
+    min-width: calc(var(--sidebar-width) - var(--space-8));
+    max-height: var(--radix-dropdown-menu-content-available-height, var(--radix-select-content-available-height, none));
+    overflow: auto;
+    box-sizing: border-box;
+    padding: var(--space-1);
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-pop);
+    font-family: var(--font-sans);
+    font-size: var(--type-body-size);
+    z-index: 50;
+  }
+  .zn-select-content {
+    min-width: var(--radix-select-trigger-width);
+  }
+  .zn-menu-item {
+    all: unset;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    height: var(--control-md);
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    cursor: pointer;
+    user-select: none;
+  }
+  .zn-menu-item svg {
+    color: var(--text-muted);
+  }
+  .zn-menu-item[data-highlighted] {
+    background: var(--surface-muted);
+  }
+  .zn-menu-item[data-disabled] {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .zn-menu-item.is-danger,
+  .zn-menu-item.is-danger svg {
+    color: var(--danger);
+  }
+  .zn-menu-item-indicator {
+    margin-left: auto;
+    display: inline-flex;
+    color: var(--accent-text);
+  }
+  .zn-menu-item-indicator svg {
+    color: inherit;
+  }
+  .zn-menu-shortcut {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: var(--type-eyebrow-size);
+    color: var(--text-faint);
+  }
+  .zn-menu-label {
+    padding: var(--space-2) var(--space-2) var(--space-1);
+    font-size: var(--type-eyebrow-size);
+    line-height: var(--type-eyebrow-line);
+    font-weight: var(--type-eyebrow-weight);
+    letter-spacing: var(--type-eyebrow-tracking);
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .zn-menu-separator {
+    height: 1px;
+    margin: var(--space-1) calc(var(--space-1) * -1);
+    background: var(--border);
+  }
+
+  /* ---- Coquille (signature du style Panneau) --------------------------- */
+  .zn-shell {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+    height: 100dvh;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+  }
+  /* Coquille encadrée (planche, aperçu) plutôt que plein écran. */
+  .zn-shell.is-framed {
+    height: auto;
+    border: 1px solid var(--border-strong);
+    border-radius: calc(var(--radius-lg) + var(--shell-gap));
+  }
+  .zn-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-3) var(--space-2);
+    min-height: 0;
+    overflow-y: auto;
+  }
+  .zn-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 2px var(--space-2) var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--type-title-size);
+    line-height: var(--type-title-line);
+    font-weight: var(--type-title-weight);
+    color: var(--text);
+  }
+  .zn-brand-mark {
+    width: calc(var(--icon-md) + 2px);
+    height: calc(var(--icon-md) + 2px);
+    border-radius: var(--radius-xs);
+    background: var(--accent);
+    color: var(--on-accent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+  .zn-eyebrow {
+    padding: var(--space-2) var(--space-2) var(--space-1);
+    font-size: var(--type-eyebrow-size);
+    line-height: var(--type-eyebrow-line);
+    font-weight: var(--type-eyebrow-weight);
+    letter-spacing: var(--type-eyebrow-tracking);
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .zn-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    height: var(--control-md);
+    padding: 0 var(--space-2);
+    border: 0;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: var(--type-label-size);
+    font-weight: var(--type-label-weight);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  .zn-nav:hover {
+    background: var(--surface-subtle);
+    color: var(--text);
+  }
+  .zn-nav[aria-current="page"],
+  .zn-nav[aria-current="true"] {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow:
+      0 0 0 1px var(--border),
+      var(--shadow-sm);
+  }
+  .zn-nav[aria-current="page"] svg,
+  .zn-nav[aria-current="true"] svg {
+    color: var(--accent-text);
+  }
+  .zn-nav:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 1px;
+  }
+  .zn-nav .zn-count {
+    margin-left: auto;
+  }
+  .zn-sidebar-foot {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .zn-panel {
+    margin: var(--shell-gap) var(--shell-gap) var(--shell-gap) 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-5) var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+  }
+  .zn-page-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+  .zn-page-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--type-display-size);
+    line-height: var(--type-display-line);
+    font-weight: var(--type-display-weight);
+    letter-spacing: var(--type-display-tracking);
+    color: var(--text);
+  }
+  .zn-section-title {
+    margin: 0;
+    font-size: var(--type-title-size);
+    line-height: var(--type-title-line);
+    font-weight: var(--type-title-weight);
+  }
+}
+
+/* ---- Réglage du thème ------------------------------------------------- */
+@layer components {
+  .zn-theme-settings {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .zn-theme-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+  .zn-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .zn-swatch {
+    width: var(--control-sm);
+    height: var(--control-sm);
+    padding: 0;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-strong);
+    background: var(--zn-swatch);
+    cursor: pointer;
+  }
+  .zn-swatch[aria-checked="true"] {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+  }
+  .zn-swatch:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+  .zn-swatch-custom {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    height: var(--control-sm);
+    padding: 0 var(--space-2) 0 3px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-strong);
+    color: var(--text-muted);
+    font-size: var(--type-label-size);
+    font-weight: var(--type-label-weight);
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  .zn-swatch-custom[aria-checked="true"] {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+    color: var(--text);
+  }
+  .zn-swatch-custom input {
+    width: calc(var(--control-sm) - 8px);
+    height: calc(var(--control-sm) - 8px);
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+  .zn-swatch-custom input::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  .zn-swatch-custom input::-webkit-color-swatch {
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-xs);
+  }
+  .zn-swatch-custom:focus-within {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}

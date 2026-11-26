@@ -80,6 +80,9 @@
   --icon-md: 16px;
   --chip-height: 22px;
   --tag-height: 20px;
+  --checkbox-size: 16px;
+  --switch-width: 32px;
+  --switch-height: 18px;
   --sidebar-width: 232px;
   --shell-gap: 6px;
   --rail-width: 56px;
@@ -126,4 +129,32 @@
   --type-code-line: 18px;
   --type-code-weight: 400;
   --type-code-tracking: 0;
+}
+
+/* Variantes de style (data-variant sur <html> ou sur un conteneur). Couche Style seulement. */
+[data-variant="net"] {
+  --radius-lg: 10px;
+  --type-display-family: var(--font-display);
+  --type-title-family: var(--font-sans);
+  --type-body-family: var(--font-sans);
+  --type-label-family: var(--font-sans);
+  --type-caption-family: var(--font-sans);
+  --type-eyebrow-family: var(--font-sans);
+  --type-code-family: var(--font-mono);
+}
+
+[data-variant="tempere"] {
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 14px;
+  --font-sans: var(--font-sans-tempere);
+  --font-display: var(--font-display-tempere);
+  --type-display-family: var(--font-display);
+  --type-title-family: var(--font-sans);
+  --type-body-family: var(--font-sans);
+  --type-label-family: var(--font-sans);
+  --type-caption-family: var(--font-sans);
+  --type-eyebrow-family: var(--font-sans);
+  --type-code-family: var(--font-mono);
 }

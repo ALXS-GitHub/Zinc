@@ -139,7 +139,10 @@ export const size = {
   "icon-sm": "14px",
   "icon-md": "16px",
   "chip-height": "22px",
-  "tag-height": "20px"
+  "tag-height": "20px",
+  "checkbox-size": "16px",
+  "switch-width": "32px",
+  "switch-height": "18px"
 } as const;
 export type SizeTokenName = keyof typeof size;
 
@@ -214,6 +217,28 @@ export const typeStyles = {
   }
 } as const;
 export type TypeStyleName = keyof typeof typeStyles;
+
+/** Variantes de style et leurs surcharges de tokens. */
+export const variants = {
+  "net": {
+    "name": "Net",
+    "tokens": {
+      "radius-lg": "10px"
+    }
+  },
+  "tempere": {
+    "name": "Tempéré",
+    "tokens": {
+      "radius-xs": "6px",
+      "radius-sm": "8px",
+      "radius-md": "12px",
+      "radius-lg": "14px",
+      "font-sans": "{sans-tempere}",
+      "font-display": "{display-tempere}"
+    }
+  }
+} as const;
+export type VariantId = keyof typeof variants;
 
 export type TokenName =
   | ColorTokenName
