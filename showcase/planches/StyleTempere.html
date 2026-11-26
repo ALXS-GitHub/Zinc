@@ -1,0 +1,95 @@
+<!-- @dsCard group="Styles" height=520 width=1000 subtitle="B · Tempéré" -->
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Style Tempéré</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..700&family=Outfit:wght@400..700&family=Plus+Jakarta+Sans:wght@400..700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+html,body{margin:0}
+.wrap{background:var(--bg);color:var(--text);padding:16px;box-sizing:border-box;font-family:'Hanken Grotesk',system-ui,sans-serif}
+.cap{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+.letter{flex:none;width:26px;height:26px;border-radius:5px;background:var(--text);color:var(--bg);font-weight:700;font-size:13px;display:grid;place-items:center}
+.cap .t{font-size:15px;font-weight:600}.cap em{font-style:normal;font-size:12px;color:var(--text-muted);margin-left:8px}
+.cap p{margin:3px 0 0;font-size:12.5px;line-height:18px;color:var(--text-muted);max-width:900px}.cap p.sig{color:var(--text)}
+.body{display:grid;grid-template-columns:590px 1fr;gap:18px;align-items:start}
+
+.st{font-family:var(--f),system-ui,sans-serif;font-size:var(--fs);line-height:1.45;color:var(--text);-webkit-font-smoothing:antialiased}
+.st svg{flex:none}
+.app{background:var(--bg);border:1px solid var(--border-strong);border-radius:var(--r-panel);display:grid;grid-template-columns:150px 1fr;height:410px;overflow:hidden}
+.side{border-right:1px solid var(--border);padding:10px 8px;display:flex;flex-direction:column;gap:2px;background:var(--surface)}
+.ws{display:flex;align-items:center;gap:8px;font-family:var(--fd),system-ui,sans-serif;font-weight:600;font-size:14px;padding:2px 6px 10px;letter-spacing:var(--track)}
+.ws i{width:16px;height:16px;border-radius:calc(var(--r-ctl)/2);background:var(--accent)}
+.eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-faint);padding:6px 7px 4px}
+.nav{display:flex;align-items:center;gap:8px;height:calc(var(--h) - 2px);padding:0 8px;border-radius:var(--r-nav);color:var(--text-muted);font-size:13px;font-weight:500;cursor:pointer}
+.nav svg{width:15px;height:15px}.nav:hover{background:var(--surface-muted);color:var(--text)}
+.nav.on{background:var(--accent-soft);color:var(--text)}.nav.on svg{color:var(--accent-text)}
+.nav .n{margin-left:auto;font-size:11px;color:var(--text-faint)}
+.main{padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.top{display:flex;align-items:center;gap:6px}
+.top h3{margin:0;font-family:var(--fd),system-ui,sans-serif;font-size:var(--title);font-weight:var(--tw);letter-spacing:var(--track)}
+.cnt{font-size:11.5px;color:var(--text-faint);margin-left:3px}.sp{flex:1}
+.btn{font:inherit;font-size:12.5px;font-weight:500;height:var(--h);padding:0 11px;border-radius:var(--r-ctl);border:1px solid transparent;display:inline-flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap;box-sizing:border-box}
+.btn svg{width:14px;height:14px}
+.pri{background:var(--accent);color:var(--on-accent)}.pri:hover{background:var(--accent-hover)}
+.sec{background:var(--surface);color:var(--text);border-color:var(--border-strong)}.sec:hover{background:var(--surface-muted)}
+.ghost{background:transparent;color:var(--text-muted)}.ghost:hover{background:var(--surface-muted);color:var(--text)}
+.ico{width:var(--h);padding:0;justify-content:center}.ico.sm{width:calc(var(--h) - 6px);height:calc(var(--h) - 6px)}
+.search{display:flex;align-items:center;gap:8px;height:var(--h);padding:0 10px 0 12px;border-radius:var(--r-search);border:1px solid var(--border-control);background:var(--surface);color:var(--text-faint);font-size:12.5px;box-sizing:border-box}
+.search svg{width:14px;height:14px}.search .q{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kbd{font-family:var(--fm),monospace;font-size:10.5px;line-height:15px;padding:1px 5px;border-radius:min(var(--r-ctl),4px);border:1px solid var(--border);background:var(--surface-muted);color:var(--text-muted)}
+.tabs{display:inline-flex;align-self:flex-start;font-size:12.5px}
+.tab{font:inherit;font-weight:500;border:0;background:transparent;color:var(--text-muted);cursor:pointer;padding:0 12px;height:calc(var(--h) - 6px);display:inline-flex;align-items:center;gap:5px}
+.tab:hover{color:var(--text)}.tab .k{font-size:11px;color:var(--text-faint)}
+.t-rect .tabs{border:1px solid var(--border-strong);border-radius:var(--r-tab);overflow:hidden;background:var(--surface)}
+.t-rect .tab{border-right:1px solid var(--border-strong);height:calc(var(--h) - 4px)}.t-rect .tab:last-child{border-right:0}
+.t-rect .tab.on{background:var(--accent-soft);color:var(--text);box-shadow:inset 0 -2px 0 var(--accent)}
+.t-line .tabs{align-self:stretch;border-bottom:1px solid var(--border);gap:4px}
+.t-line .tab{padding:0 8px;margin-bottom:-1px;border-bottom:2px solid transparent;height:calc(var(--h) - 2px)}
+.t-line .tab.on{color:var(--text);border-bottom-color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:10px 12px;display:flex;flex-direction:column;gap:5px;cursor:pointer;transition:border-color .12s,box-shadow .12s,background-color .12s}
+.card:hover{border-color:var(--border-strong)}
+.r1,.r2{display:flex;align-items:center;gap:6px}
+.r1 b{font-family:var(--fd),system-ui,sans-serif;font-weight:600;font-size:14px;letter-spacing:var(--track)}
+.path{font-family:var(--fm),monospace;font-size:11.5px;color:var(--text-muted)}
+.chip{display:inline-flex;align-items:center;gap:5px;height:21px;padding:0 8px 0 7px;border-radius:var(--r-chip);font-size:11.5px;font-weight:500;border:1px solid var(--border);color:var(--text);box-sizing:border-box;white-space:nowrap}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c)}
+.tag{display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:var(--r-tag);font-size:11.5px;background:var(--surface-muted);color:var(--text-muted)}
+.form{display:flex;gap:6px;margin-top:auto}
+.inp{flex:1;min-width:0;height:var(--h);box-sizing:border-box;padding:0 10px;border-radius:var(--r-ctl);border:1px solid var(--border-control);background:var(--surface);color:var(--text);font-size:13px;display:flex;align-items:center}
+.inp .ph{color:var(--text-faint)}.inp.focus{border-color:var(--focus-ring);box-shadow:0 0 0 1px var(--focus-ring)!important}
+/* tableau (style Structuré) */
+.sect{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-faint)}
+.sect::after{content:"";flex:1;height:1px;background:var(--border)}
+.tbl{border:1px solid var(--border);border-radius:var(--r-card);background:var(--surface);overflow:hidden}
+.tr{display:grid;grid-template-columns:1fr 1.15fr auto 52px;align-items:center;gap:10px;padding:0 10px 0 12px;height:38px;border-bottom:1px solid var(--border);font-size:13px;cursor:pointer}
+.tr:last-child{border-bottom:0}.tr:hover{background:var(--surface-muted)}
+.tr b{font-weight:600}.tr .acts{display:flex;justify-content:flex-end}
+.th{height:28px;cursor:default;background:var(--surface-muted);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-faint)}.th:hover{background:var(--surface-muted)}
+/* bande de composants isolés */
+.strip{display:flex;flex-direction:column;gap:12px;padding-top:2px}
+.row{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.fld{display:flex;flex-direction:column;gap:5px}.fld .inp{flex:none}.flbl{font-size:12.5px;font-weight:500}
+.sw{width:30px;height:18px;border-radius:999px;background:var(--border-control);position:relative;flex:none;box-sizing:border-box}
+.sw.on{background:var(--accent)}.knob{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff}.sw.on .knob{left:14px}
+.cb{width:16px;height:16px;border-radius:min(var(--r-ctl),4px);border:1px solid var(--border-control);background:var(--surface);box-sizing:border-box;display:grid;place-items:center;flex:none;color:var(--on-accent)}
+.cb.on{background:var(--accent);border-color:var(--accent)}.cb svg{width:11px;height:11px}
+.opt{display:inline-flex;align-items:center;gap:7px;font-size:13px;margin-right:10px}
+.menu{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-menu);box-shadow:var(--shadow-pop);padding:4px;width:230px;box-sizing:border-box}
+.mi{display:flex;align-items:center;gap:8px;height:calc(var(--h) - 2px);padding:0 8px;border-radius:max(calc(var(--r-menu) - 4px),2px);font-size:13px;color:var(--text);cursor:pointer}
+.mi svg{width:14px;height:14px;color:var(--text-muted)}.mi .kbd{margin-left:auto}
+.mi:hover,.mi.hl{background:var(--surface-muted)}.mi.dg,.mi.dg svg{color:var(--danger)}
+.msep{height:1px;background:var(--border);margin:4px 2px}
+.st[data-s="tempere"]{--f:'Plus Jakarta Sans';--fd:'Outfit';--fm:'JetBrains Mono';--fs:13.5px;--h:32px;--r-ctl:8px;--r-card:12px;--r-panel:14px;--r-search:999px;--r-tab:8px;--r-chip:999px;--r-tag:6px;--r-nav:8px;--r-menu:10px;--title:17px;--tw:600;--track:-0.01em;}
+
+.st[data-s="tempere"] .tabs{background:var(--surface-muted);padding:3px;gap:2px;border-radius:var(--r-tab)} .st[data-s="tempere"] .tab{border-radius:6px} .st[data-s="tempere"] .tab.on{background:var(--surface);color:var(--text);box-shadow:0 1px 2px rgba(16,24,40,.1)}
+.st[data-s="tempere"] .sec{box-shadow:0 1px 2px rgba(16,24,40,.06)} .st[data-s="tempere"] .card{box-shadow:0 1px 2px rgba(16,24,40,.05)}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="cap"><span class="letter">B</span><div><span class="t">Tempéré</span><em>variante</em><p>Variante, activée par data-variant=&quot;tempere&quot;. Coins plus doux (8 / 12 / 14), titres en Outfit et texte en Plus Jakarta Sans, cartes et bouton secondaire avec une ombre minimale ; pas de panneau surélevé.</p><p class="sig">Pour une app plus douce ou plus « produit », proche de l'allure actuelle de Zorg et CortX sans le verre.</p></div></div><div class="body st t-seg" data-s="tempere"><div class="app"><aside class="side"><div class="ws"><i></i>Zorg</div><div class="eyebrow">Espace</div><a class="nav on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>Projets<span class="n">22</span></a><a class="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 15h5"/></svg>Tickets<span class="n">8</span></a><a class="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>Scripts</a><a class="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>Réglages</a></aside><div class="main"><div class="top"><h3>Projets</h3><span class="cnt">22</span><span class="sp"></span><button class="btn sec">Importer</button><button class="btn pri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Nouveau</button></div><div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="q">Rechercher un projet…</span><span class="kbd">Ctrl K</span></div><div class="tabs"><button class="tab on">Tous <span class="k">22</span></button><button class="tab">Actifs <span class="k">9</span></button><button class="tab">Archivés</button></div><div class="card"><div class="r1"><b>Zorg</b><span class="sp"></span><span class="chip" style="--c:var(--warning)">En cours</span></div><span class="path">~/dev/zorg</span><div class="r2"><span class="tag">web</span><span class="tag">supabase</span><span class="sp"></span><button class="btn ghost ico sm" title="Lancer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M7 4v16l13-8Z"/></svg></button><button class="btn ghost ico sm" title="Plus"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg></button></div></div><div class="card"><div class="r1"><b>CortX</b><span class="sp"></span><span class="chip" style="--c:var(--success)">En ligne</span></div><span class="path">~/dev/cortx</span><div class="r2"><span class="tag">tauri</span><span class="tag">rust</span><span class="sp"></span><button class="btn ghost ico sm" title="Lancer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M7 4v16l13-8Z"/></svg></button><button class="btn ghost ico sm" title="Plus"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg></button></div></div><div class="form"><div class="inp"><span class="ph">Nom du projet</span></div><button class="btn sec">Créer</button></div></div></div><div class="strip"><div class="row"><button class="btn pri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Nouveau</button><button class="btn sec">Importer</button><button class="btn ghost">Annuler</button><button class="btn ghost ico" title="Plus"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg></button></div><label class="fld"><span class="flbl">Dossier</span><span class="inp focus">~/dev/zorg</span></label><div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="q">Aller à… (vue, projet)</span><span class="kbd">Ctrl K</span></div><div class="tabs"><button class="tab on">Liste</button><button class="tab">Kanban</button><button class="tab">Calendrier</button></div><div class="row"><span class="chip" style="--c:var(--info)">Ouvert</span><span class="chip" style="--c:var(--warning)">En cours</span><span class="chip" style="--c:var(--success)">Terminé</span><span class="chip" style="--c:var(--danger)">Bloqué</span><span class="tag">web</span></div><div class="row"><span class="opt"><span class="sw on"><span class="knob"></span></span>Notifications</span><span class="opt"><span class="cb on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17l9-10"/></svg></span>Archiver</span><span class="opt"><span class="cb"></span>Épingler</span></div><div class="menu"><div class="mi hl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Ouvrir<span class="kbd">Entrée</span></div><div class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Dupliquer<span class="kbd">Ctrl D</span></div><div class="msep"></div><div class="mi dg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>Supprimer</div></div></div></div></div>
+<script>
+document.addEventListener('click',function(e){var t=e.target.closest('.tab,.nav');if(!t)return;var k=t.classList.contains('tab')?'tab':'nav';t.parentNode.querySelectorAll('.'+k).forEach(function(x){x.classList.toggle('on',x===t)});});
+</script>
+</body>
+</html>

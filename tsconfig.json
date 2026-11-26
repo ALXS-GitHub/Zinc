@@ -17,5 +17,5 @@
     "types": ["bun"],
     "paths": { "@zinc/ui": ["./src/index.ts"] }
   },
-  "include": ["src", "tests", "scripts", "demo"]
+  "include": ["src", "tests", "scripts", "demo", "showcase"]
 }

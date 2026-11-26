@@ -1,0 +1,36 @@
+/* Mise en page des planches de la vitrine (pas des composants). */
+.zn-stage {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+.zn-stage > * {
+  max-width: 100%;
+}
+.zn-stage[data-on="shell"] {
+  align-items: stretch;
+}
+body:has(.zn-stage[data-on="panel"]) {
+  background: var(--surface);
+}
+.zn-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+.zn-label-sm {
+  width: 96px;
+  flex: none;
+  font-size: var(--type-eyebrow-size);
+  line-height: var(--type-eyebrow-line);
+  font-weight: var(--type-eyebrow-weight);
+  letter-spacing: var(--type-eyebrow-tracking);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.zn-stage .zn-search {
+  max-width: 420px;
+}
