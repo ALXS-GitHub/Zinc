@@ -2,6 +2,7 @@ import { Check, ChevronDown } from "lucide-react";
 import { Select as SelectPrimitive } from "radix-ui";
 import type { ComponentProps } from "react";
 import { cx } from "./cx";
+import { useFieldControl } from "./Field";
 
 /** Liste déroulante (Radix Select) : déclencheur au gabarit d'un champ, liste au gabarit d'un menu. */
 export const Select = SelectPrimitive.Root;
@@ -10,7 +11,7 @@ export const SelectValue = SelectPrimitive.Value;
 
 export function SelectTrigger({ className, children, ...props }: ComponentProps<typeof SelectPrimitive.Trigger>) {
   return (
-    <SelectPrimitive.Trigger className={cx("zn-input zn-select-trigger", className)} {...props}>
+    <SelectPrimitive.Trigger className={cx("zn-input zn-select-trigger", className)} {...useFieldControl(props)}>
       <span>{children}</span>
       <SelectPrimitive.Icon asChild>
         <ChevronDown aria-hidden strokeWidth={2} />

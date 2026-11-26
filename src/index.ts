@@ -2,7 +2,7 @@
    importer aussi `@zinc/ui/zinc.css` une fois dans l'app. */
 export { cx } from "./components/cx";
 export { Button, buttonClass, type ButtonProps, type ButtonSize, type ButtonVariant } from "./components/Button";
-export { Field, Input, Textarea, type FieldProps } from "./components/Field";
+export { Field, Input, Textarea, useFieldControl, type FieldProps } from "./components/Field";
 export {
   Select,
   SelectContent,
