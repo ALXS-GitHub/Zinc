@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zinc — démo</title>
+    <link rel="icon" href="data:," />
+    <script>
+      (function(){try{var q=new URLSearchParams(location.search);var s=JSON.parse(localStorage.getItem("zinc:theme")||"null");var m=q.get("mode")||s&&s.mode||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var r=document.documentElement;r.setAttribute("data-theme",m);if(m==="dark")r.classList.add("dark");var v=q.get("variant");if(v==="net"||v==="tempere")r.setAttribute("data-variant",v);}catch(e){}})();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./main.tsx"></script>
+  </body>
+</html>

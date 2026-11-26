@@ -15,7 +15,11 @@
     "./shadcn.css": "./src/tailwind/shadcn.css",
     "./tokens.json": "./tokens.json"
   },
-  "files": ["src", "tokens.json", "docs"],
+  "files": [
+    "src",
+    "tokens.json",
+    "docs"
+  ],
   "scripts": {
     "tokens": "bun scripts/build-tokens.ts",
     "tokens:check": "bun scripts/build-tokens.ts --check",
@@ -24,7 +28,8 @@
     "demo": "vite --config demo/vite.config.ts",
     "build:demo": "vite build --config demo/vite.config.ts",
     "build:showcase": "bun scripts/build-showcase.ts",
-    "build": "bun run tokens:check && bun run typecheck && bun test && bun run build:demo && bun run build:showcase"
+    "build": "bun run tokens:check && bun run typecheck && bun test && bun run build:demo && bun run build:showcase",
+    "shots": "bun scripts/screenshots.ts"
   },
   "peerDependencies": {
     "react": "^19.2.0",
@@ -44,6 +49,7 @@
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
+    "puppeteer-core": "^25.19.0",
     "tailwindcss": "^4.1.18",
     "typescript": "~5.9.3",
     "vite": "^7.2.0"
