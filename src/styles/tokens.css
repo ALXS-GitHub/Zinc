@@ -1,0 +1,129 @@
+/* Zinc — généré depuis tokens.json par scripts/build-tokens.ts. Ne pas modifier à la main. */
+
+/* Couche Couleur : thème par défaut (neutre ardoise, accent jaune). Le moteur de thème réécrit ces variables sur :root. */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #eef1f6;
+  --surface: #ffffff;
+  --surface-subtle: #f9fafc;
+  --surface-muted: #f1f4f7;
+  --surface-sunken: #ebeef2;
+  --border: #e0e3e7;
+  --border-strong: #ced1d5;
+  --border-control: #888b8e;
+  --text: #1b1e23;
+  --text-muted: #595d61;
+  --text-faint: #6a6d71;
+  --accent: #f5c518;
+  --accent-hover: #dfb200;
+  --accent-soft: #f5c51833;
+  --accent-text: #856900;
+  --on-accent: #1e1500;
+  --focus-ring: var(--accent-text);
+  --danger: #dc2626;
+  --on-danger: #ffffff;
+  --success: #15803d;
+  --warning: #c2410c;
+  --info: #2563eb;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-pop: 0 8px 24px -8px rgba(16, 24, 40, 0.18), 0 2px 6px -2px rgba(16, 24, 40, 0.08);
+}
+
+[data-theme="dark"],
+.dark {
+  color-scheme: dark;
+  --bg: #0a0c10;
+  --surface: #15171b;
+  --surface-subtle: #181b1f;
+  --surface-muted: #1d2023;
+  --surface-sunken: #090b0e;
+  --border: #292c30;
+  --border-strong: #393c40;
+  --border-control: #626569;
+  --text: #edeef0;
+  --text-muted: #abaeb2;
+  --text-faint: #8b8e91;
+  --accent: #facc15;
+  --accent-hover: #e4b900;
+  --accent-soft: #facc1526;
+  --accent-text: #facc15;
+  --on-accent: #1d1500;
+  --focus-ring: var(--accent);
+  --danger: #f87171;
+  --on-danger: #1f0707;
+  --success: #4ade80;
+  --warning: #fb923c;
+  --info: #60a5fa;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-pop: 0 12px 32px -8px rgba(0, 0, 0, 0.6), 0 2px 6px -2px rgba(0, 0, 0, 0.4);
+}
+
+/* Couche Style et Disposition : espacements, coins, hauteurs, mesures, polices, échelle typographique. */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+  --control-sm: 28px;
+  --control-md: 32px;
+  --control-lg: 36px;
+  --icon-sm: 14px;
+  --icon-md: 16px;
+  --chip-height: 22px;
+  --tag-height: 20px;
+  --sidebar-width: 232px;
+  --shell-gap: 6px;
+  --rail-width: 56px;
+  --header-height: 48px;
+  --content-max: 1120px;
+  --list-pane-width: 360px;
+  --font-sans: "Hanken Grotesk Variable", "Hanken Grotesk", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Hanken Grotesk Variable", "Hanken Grotesk", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", "Cascadia Mono", Consolas, ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans-tempere: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-display-tempere: "Outfit Variable", Outfit, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --type-display-family: var(--font-display);
+  --type-display-size: 22px;
+  --type-display-line: 28px;
+  --type-display-weight: 600;
+  --type-display-tracking: -0.01em;
+  --type-title-family: var(--font-sans);
+  --type-title-size: 15px;
+  --type-title-line: 20px;
+  --type-title-weight: 600;
+  --type-title-tracking: 0;
+  --type-body-family: var(--font-sans);
+  --type-body-size: 13.5px;
+  --type-body-line: 20px;
+  --type-body-weight: 400;
+  --type-body-tracking: 0;
+  --type-label-family: var(--font-sans);
+  --type-label-size: 13px;
+  --type-label-line: 18px;
+  --type-label-weight: 500;
+  --type-label-tracking: 0;
+  --type-caption-family: var(--font-sans);
+  --type-caption-size: 12px;
+  --type-caption-line: 16px;
+  --type-caption-weight: 400;
+  --type-caption-tracking: 0;
+  --type-eyebrow-family: var(--font-sans);
+  --type-eyebrow-size: 11px;
+  --type-eyebrow-line: 14px;
+  --type-eyebrow-weight: 600;
+  --type-eyebrow-tracking: 0.06em;
+  --type-code-family: var(--font-mono);
+  --type-code-size: 12.5px;
+  --type-code-line: 18px;
+  --type-code-weight: 400;
+  --type-code-tracking: 0;
+}
