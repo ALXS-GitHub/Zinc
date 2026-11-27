@@ -34,6 +34,57 @@ interface Shot {
   query: string;
   height?: number;
   step?: Step;
+  /** Vérification dans la page : renvoie la liste des écarts (vide = ok). */
+  check?: (page: Page) => Promise<string[]>;
+}
+
+/**
+ * Mesures attendues des composants shadcn (repérés par data-slot) : celles de
+ * Zinc. Chaque règle : sélecteur shadcn, mesure, référence — un token
+ * (`control-md`) ou, quand la valeur dépend de la variante, le composant Zinc
+ * équivalent posé dans la même page (`.zn-tabs-list`).
+ */
+const BUTTON = ':is([data-slot="button"], [data-slot$="-trigger"][data-variant][data-size]:not([data-slot="select-trigger"]))';
+const SHADCN_METRICS: [selector: string, prop: "height" | "width" | "borderRadius", ref: string][] = [
+  [`${BUTTON}[data-size="default"]`, "height", "control-md"],
+  [`${BUTTON}[data-size="sm"]`, "height", "control-sm"],
+  [`${BUTTON}[data-size="lg"]`, "height", "control-lg"],
+  [`${BUTTON}[data-size="icon"]`, "width", "control-md"],
+  [BUTTON, "borderRadius", ".zn-btn"],
+  ['[data-slot="dropdown-menu-trigger"][data-size="default"]', "height", "control-md"],
+  ['[data-slot="input"]', "height", "control-md"],
+  ['[data-slot="input"]', "borderRadius", ".zn-input"],
+  ['[data-slot="select-trigger"]', "height", "control-md"],
+  ['[data-slot="tabs-list"]', "height", ".zn-tabs-list"],
+  ['[data-slot="tabs-list"]', "borderRadius", ".zn-tabs-list"],
+  ['[data-slot="checkbox"]', "height", "checkbox-size"],
+  ['[data-slot="switch"]', "width", "switch-width"],
+  ['[data-slot="switch"]', "height", "switch-height"],
+  ['[data-slot="badge"]', "height", "tag-height"],
+  ['[data-slot="card"]', "borderRadius", ".zn-card"],
+];
+
+async function checkShadcnMetrics(page: Page): Promise<string[]> {
+  return page.evaluate((rules) => {
+    const root = getComputedStyle(document.documentElement);
+    const measure = (el: HTMLElement, prop: string) => {
+      const r = el.getBoundingClientRect();
+      return prop === "borderRadius" ? Number.parseFloat(getComputedStyle(el).borderTopLeftRadius) : prop === "height" ? r.height : r.width;
+    };
+    const out: string[] = [];
+    for (const [sel, prop, ref] of rules) {
+      const zinc = ref.startsWith(".") ? document.querySelector<HTMLElement>(ref) : null;
+      if (ref.startsWith(".") && !zinc) out.push(`${ref} : référence Zinc absente`);
+      const want = zinc ? measure(zinc, prop) : Number.parseFloat(root.getPropertyValue(`--${ref}`));
+      const els = [...document.querySelectorAll<HTMLElement>(sel)];
+      if (!els.length) out.push(`${sel} : aucun élément`);
+      for (const el of els) {
+        const got = measure(el, prop);
+        if (Math.abs(got - want) > 0.5) out.push(`${sel} ${prop} = ${got}px, attendu ${ref} = ${want}px`);
+      }
+    }
+    return out;
+  }, SHADCN_METRICS);
 }
 
 const shots: Shot[] = [];
@@ -41,9 +92,31 @@ for (const mode of ["light", "dark"]) {
   for (const variant of ["panneau", "net", "tempere"]) {
     shots.push({ name: `apercu-${variant}-${mode}`, query: `view=apercu&mode=${mode}&variant=${variant}`, height: 860 });
   }
-  for (const view of ["composants", "variantes", "theme", "shadcn"]) {
+  for (const view of ["composants", "variantes", "theme"]) {
     shots.push({ name: `${view}-${mode}`, query: `view=${view}&mode=${mode}` });
   }
+  for (const variant of ["panneau", "net", "tempere"]) {
+    shots.push({
+      name: `shadcn-${variant}-${mode}`,
+      query: `view=shadcn&mode=${mode}&variant=${variant}`,
+      height: 1100,
+      check: checkShadcnMetrics,
+    });
+  }
+  shots.push({
+    name: `shadcn-menu-${mode}`,
+    query: `view=shadcn&mode=${mode}`,
+    height: 1100,
+    step: async (p) => {
+      for (const b of await p.$$("button")) {
+        if ((await b.evaluate((e) => e.textContent))?.trim() === "Menu shadcn") {
+          await b.focus();
+          await p.keyboard.press("Enter");
+        }
+      }
+      await p.waitForSelector('[data-slot="dropdown-menu-content"]');
+    },
+  });
   shots.push({
     name: `menu-${mode}`,
     query: `view=composants&mode=${mode}`,
@@ -99,6 +172,7 @@ for (const s of shots) {
     if (s.step) await s.step(page);
     await new Promise((r) => setTimeout(r, 150));
     await page.screenshot({ path: join(out, `${s.name}.png`) as `${string}.png` });
+    if (s.check) errors.push(...(await s.check(page)));
     if (errors.length) throw new Error(errors.join("\n"));
     console.log(`ok    ${s.name}`);
   } catch (e) {

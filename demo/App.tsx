@@ -77,11 +77,24 @@ import {
   ShCardDescription,
   ShCardHeader,
   ShCardTitle,
+  ShCheckbox,
   ShDropdownMenu,
   ShDropdownMenuContent,
   ShDropdownMenuItem,
+  ShDropdownMenuShortcut,
   ShDropdownMenuTrigger,
   ShInput,
+  ShLabel,
+  ShSelect,
+  ShSelectContent,
+  ShSelectItem,
+  ShSelectTrigger,
+  ShSelectValue,
+  ShSwitch,
+  ShTabs,
+  ShTabsList,
+  ShTabsTrigger,
+  ShTextarea,
 } from "./shadcn/ui";
 
 type Variant = "panneau" | "net" | "tempere";
@@ -598,43 +611,130 @@ function ShadcnView() {
     <>
       <PageHeader title="shadcn" />
       <p className="zn-card-desc">
-        Composants shadcn/ui recopiés sans retouche. Ils prennent les couleurs, les coins, les polices et l'échelle de
-        Zinc par <code>@zinc/ui/shadcn.css</code>. Leurs hauteurs restent celles de shadcn (36 px) : pour la coquille et
-        les contrôles cadrés, préférer les composants Zinc.
+        Composants shadcn/ui v4 recopiés sans retouche (classes h-9, rounded-md, ring-[3px]…). La couche{" "}
+        <code>@zinc/ui/shadcn.css</code> leur impose les mesures Zinc par leurs attributs <code>data-slot</code> : chaque
+        ligne pose le composant Zinc puis son équivalent shadcn, à la même hauteur.
       </p>
-      <div className="demo-row">
-        <ShButton>Créer</ShButton>
-        <ShButton variant="secondary">Secondaire</ShButton>
-        <ShButton variant="outline">Contour</ShButton>
-        <ShButton variant="ghost">Fantôme</ShButton>
-        <ShButton variant="destructive">Supprimer</ShButton>
-        <ShButton variant="link">Lien</ShButton>
+      <section className="demo-section" data-testid="shadcn-compare">
+        <Row label="Bouton">
+          <Button variant="primary">Créer</Button>
+          <ShButton>Créer</ShButton>
+          <Button>Importer</Button>
+          <ShButton variant="outline">Importer</ShButton>
+          <ShButton variant="secondary">Secondaire</ShButton>
+          <ShButton variant="ghost">Fantôme</ShButton>
+          <ShButton variant="destructive">Supprimer</ShButton>
+          <ShButton variant="link">Lien</ShButton>
+        </Row>
+        <Row label="Tailles">
+          <Button variant="primary" size="sm">
+            Petit
+          </Button>
+          <ShButton size="sm">Petit</ShButton>
+          <Button variant="primary" size="lg">
+            Grand
+          </Button>
+          <ShButton size="lg">Grand</ShButton>
+          <Button icon aria-label="Lancer">
+            <Play />
+          </Button>
+          <ShButton variant="outline" size="icon" aria-label="Lancer">
+            <Play />
+          </ShButton>
+        </Row>
+        <Row label="Champ">
+          <div style={{ width: 220 }}>
+            <Input placeholder="Zinc" aria-label="Champ Zinc" />
+          </div>
+          <div style={{ width: 220 }}>
+            <ShInput placeholder="shadcn" aria-label="Champ shadcn" />
+          </div>
+          <div style={{ width: 220 }}>
+            <ShInput defaultValue="80800" aria-invalid aria-label="Champ invalide" />
+          </div>
+        </Row>
+        <Row label="Liste">
+          <div style={{ width: 220 }}>
+            <Select defaultValue="progress">
+              <SelectTrigger aria-label="Statut Zinc">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="progress">En cours</SelectItem>
+                <SelectItem value="done">Terminé</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <ShSelect defaultValue="progress">
+            <ShSelectTrigger aria-label="Statut shadcn" style={{ width: 220 }}>
+              <ShSelectValue />
+            </ShSelectTrigger>
+            <ShSelectContent>
+              <ShSelectItem value="progress">En cours</ShSelectItem>
+              <ShSelectItem value="done">Terminé</ShSelectItem>
+            </ShSelectContent>
+          </ShSelect>
+        </Row>
+        <Row label="Onglets">
+          <Tabs defaultValue="tous">
+            <TabsList aria-label="Onglets Zinc">
+              <TabsTrigger value="tous">Tous</TabsTrigger>
+              <TabsTrigger value="actifs">Actifs</TabsTrigger>
+            </TabsList>
+          </Tabs>
+          <ShTabs defaultValue="tous">
+            <ShTabsList aria-label="Onglets shadcn">
+              <ShTabsTrigger value="tous">Tous</ShTabsTrigger>
+              <ShTabsTrigger value="actifs">Actifs</ShTabsTrigger>
+            </ShTabsList>
+          </ShTabs>
+        </Row>
+        <Row label="Cases">
+          <Checkbox defaultChecked aria-label="Case Zinc" />
+          <ShCheckbox defaultChecked aria-label="Case shadcn" />
+          <Switch defaultChecked aria-label="Interrupteur Zinc" />
+          <ShSwitch defaultChecked aria-label="Interrupteur shadcn" />
+          <ShSwitch aria-label="Interrupteur shadcn éteint" />
+          <ShLabel htmlFor="sh-cb">
+            <ShCheckbox id="sh-cb" /> Libellé shadcn
+          </ShLabel>
+        </Row>
+        <Row label="Badge, menu">
+          <Tag>web</Tag>
+          <ShBadge variant="secondary">web</ShBadge>
+          <ShBadge>Nouveau</ShBadge>
+          <ShBadge variant="outline">v0.1</ShBadge>
+          <ShDropdownMenu>
+            <ShDropdownMenuTrigger asChild>
+              <ShButton variant="outline">Menu shadcn</ShButton>
+            </ShDropdownMenuTrigger>
+            <ShDropdownMenuContent>
+              <ShDropdownMenuItem>
+                Dupliquer <ShDropdownMenuShortcut>Ctrl D</ShDropdownMenuShortcut>
+              </ShDropdownMenuItem>
+              <ShDropdownMenuItem>Réglages</ShDropdownMenuItem>
+              <ShDropdownMenuItem variant="destructive">Supprimer</ShDropdownMenuItem>
+            </ShDropdownMenuContent>
+          </ShDropdownMenu>
+        </Row>
+      </section>
+      <div className="demo-grid">
+        <Card>
+          <CardHeader>
+            <CardTitle>Carte Zinc</CardTitle>
+          </CardHeader>
+          <CardDescription>surface-subtle, radius-md, padding space-4.</CardDescription>
+        </Card>
+        <ShCard>
+          <ShCardHeader>
+            <ShCardTitle>Carte shadcn</ShCardTitle>
+            <ShCardDescription>Même fond, mêmes coins, même retrait.</ShCardDescription>
+          </ShCardHeader>
+          <ShCardContent>
+            <ShTextarea placeholder="Notes" aria-label="Notes" />
+          </ShCardContent>
+        </ShCard>
       </div>
-      <div className="demo-row">
-        <ShBadge>Nouveau</ShBadge>
-        <ShBadge variant="secondary">Brouillon</ShBadge>
-        <ShBadge variant="outline">v0.1</ShBadge>
-        <ShDropdownMenu>
-          <ShDropdownMenuTrigger asChild>
-            <ShButton variant="outline">Menu shadcn</ShButton>
-          </ShDropdownMenuTrigger>
-          <ShDropdownMenuContent>
-            <ShDropdownMenuItem>Profil</ShDropdownMenuItem>
-            <ShDropdownMenuItem>Réglages</ShDropdownMenuItem>
-            <ShDropdownMenuItem disabled>Facturation</ShDropdownMenuItem>
-          </ShDropdownMenuContent>
-        </ShDropdownMenu>
-      </div>
-      <ShCard className="max-w-md">
-        <ShCardHeader>
-          <ShCardTitle>Carte shadcn</ShCardTitle>
-          <ShCardDescription>bg-card → surface-subtle, rounded-xl → radius-lg.</ShCardDescription>
-        </ShCardHeader>
-        <ShCardContent className="flex gap-2">
-          <ShInput placeholder="Adresse e-mail" />
-          <ShButton>Envoyer</ShButton>
-        </ShCardContent>
-      </ShCard>
     </>
   );
 }
