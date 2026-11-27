@@ -257,10 +257,9 @@
     font-weight: var(--type-body-weight);
     box-shadow: none;
   }
-  :is([data-slot="input"], [data-slot="textarea"], [data-slot="select-trigger"]) {
-    padding-left: var(--space-3);
-    padding-right: var(--space-3);
-  }
+  /* Padding horizontal : pas imposé ici (voir la couche `components` en bas
+     de fichier), pour qu'une icône posée dans le champ puisse réserver sa
+     place avec `pl-9` / `pr-9`. */
   [data-slot="input"],
   [data-slot="select-trigger"] {
     padding-top: 0;
@@ -513,5 +512,16 @@
   [data-variant="net"] [data-slot="tabs-list"]:not([data-variant="line"]) [data-slot="tabs-trigger"]:is([data-state="active"], [data-active]) {
     background: var(--accent-soft);
     box-shadow: inset 0 -2px 0 var(--accent);
+  }
+}
+
+/* Padding horizontal par défaut des champs shadcn, sous `utilities` : une
+   app qui pose une icône dans un champ (recherche, mot de passe) lui réserve
+   sa place avec `pl-*` / `pr-*`, qui passe devant. Hauteur, contour, coins et
+   typographie restent imposés par `zinc-shadcn`. */
+@layer components {
+  :is([data-slot="input"], [data-slot="textarea"], [data-slot="select-trigger"]) {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
   }
 }
