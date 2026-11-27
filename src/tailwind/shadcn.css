@@ -176,3 +176,342 @@
     stroke: var(--accent-text);
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Mesures Zinc imposées aux composants shadcn/ui (v4).
+   Les composants shadcn sont repérés par leurs attributs `data-slot`,
+   `data-size`, `data-variant`, pas par leurs classes : quelles que soient les
+   classes Tailwind d'un composant (h-9, rounded-lg, ring-[3px]…), il prend
+   les hauteurs, coins, bordures, focus et typographie de Zinc.
+   La couche `zinc-shadcn` est déclarée après `utilities` : elle passe devant
+   toutes les classes Tailwind, y compris celles passées en className.
+   Un composant shadcn sans `data-slot` (versions antérieures à la v4) n'est
+   pas concerné : le remplacer par le composant Zinc équivalent.
+   --------------------------------------------------------------------------- */
+@layer zinc-shadcn {
+  /* Boutons : control-md par défaut, sm / lg, carrés pour les icônes. Un Button
+     shadcn passé en asChild à un déclencheur (menu, popover, dialogue…) prend le
+     data-slot du déclencheur mais garde data-variant et data-size : il est visé aussi. */
+  :is([data-slot="button"], [data-slot$="-trigger"][data-variant][data-size]:not([data-slot="select-trigger"])) {
+    height: var(--control-md);
+    min-height: 0;
+    padding: 0 var(--space-3);
+    gap: var(--space-2);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    font-size: var(--type-label-size);
+    line-height: var(--type-label-line);
+    font-weight: var(--type-label-weight);
+    box-shadow: none;
+  }
+  :is([data-slot="button"], [data-slot$="-trigger"][data-variant][data-size]:not([data-slot="select-trigger"])):is([data-size="sm"], [data-size="xs"]) {
+    height: var(--control-sm);
+    padding: 0 var(--space-2);
+  }
+  :is([data-slot="button"], [data-slot$="-trigger"][data-variant][data-size]:not([data-slot="select-trigger"]))[data-size="lg"] {
+    height: var(--control-lg);
+    padding: 0 var(--space-4);
+  }
+  :is([data-slot="button"], [data-slot$="-trigger"][data-variant][data-size]:not([data-slot="select-trigger"])):is([data-size="icon"], [data-size="icon-sm"], [data-size="icon-xs"], [data-size="icon-lg"]) {
+    padding: 0;
+    width: var(--control-md);
+  }
+  :is([data-slot="button"], [data-slot$="-trigger"][data-variant][data-size]:not([data-slot="select-trigger"])):is([data-size="icon-sm"], [data-size="icon-xs"]) {
+    height: var(--control-sm);
+    width: var(--control-sm);
+  }
+  :is([data-slot="button"], [data-slot$="-trigger"][data-variant][data-size]:not([data-slot="select-trigger"]))[data-size="icon-lg"] {
+    height: var(--control-lg);
+    width: var(--control-lg);
+  }
+  :is([data-slot="button"], [data-slot$="-trigger"][data-variant][data-size]:not([data-slot="select-trigger"])) svg {
+    width: var(--icon-md);
+    height: var(--icon-md);
+  }
+  /* outline (shadcn) = bouton secondaire Zinc. */
+  :is([data-slot="button"], [data-slot$="-trigger"][data-variant][data-size]:not([data-slot="select-trigger"]))[data-variant="outline"] {
+    background: var(--surface);
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+  :is([data-slot="button"], [data-slot$="-trigger"][data-variant][data-size]:not([data-slot="select-trigger"]))[data-variant="outline"]:hover:not(:disabled) {
+    background: var(--surface-muted);
+  }
+  :is([data-slot="button"], [data-slot$="-trigger"][data-variant][data-size]:not([data-slot="select-trigger"])):focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+    box-shadow: none;
+  }
+
+  /* Champs : control-md, radius-sm, contour border-control, focus Zinc. */
+  :is([data-slot="input"], [data-slot="textarea"], [data-slot="select-trigger"], [data-slot="input-group"]) {
+    height: var(--control-md);
+    min-height: 0;
+    border: 1px solid var(--border-control);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: var(--type-body-size);
+    font-weight: var(--type-body-weight);
+    box-shadow: none;
+  }
+  :is([data-slot="input"], [data-slot="textarea"], [data-slot="select-trigger"]) {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+  [data-slot="input"],
+  [data-slot="select-trigger"] {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  [data-slot="textarea"] {
+    height: auto;
+    min-height: calc(var(--control-md) * 2);
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+  }
+  [data-slot="select-trigger"][data-size="sm"] {
+    height: var(--control-sm);
+  }
+  :is([data-slot="input"], [data-slot="textarea"], [data-slot="select-trigger"]):focus-visible,
+  [data-slot="select-trigger"][data-state="open"],
+  [data-slot="input-group"]:focus-within {
+    border-color: var(--focus-ring);
+    box-shadow: 0 0 0 1px var(--focus-ring);
+    outline: none;
+  }
+  :is([data-slot="input"], [data-slot="textarea"], [data-slot="select-trigger"], [data-slot="input-group"]):is([aria-invalid="true"], :has([aria-invalid="true"])) {
+    border-color: var(--danger);
+    box-shadow: none;
+  }
+  :is([data-slot="input"], [data-slot="textarea"])::placeholder,
+  [data-slot="select-trigger"][data-placeholder] {
+    color: var(--text-faint);
+  }
+  :is([data-slot="label"], [data-slot="field-label"]) {
+    font-size: var(--type-label-size);
+    line-height: var(--type-label-line);
+    font-weight: var(--type-label-weight);
+  }
+  [data-slot="field-description"] {
+    font-size: var(--type-caption-size);
+    line-height: var(--type-caption-line);
+    color: var(--text-muted);
+  }
+  [data-slot="field-error"] {
+    font-size: var(--type-caption-size);
+    line-height: var(--type-caption-line);
+    color: var(--danger);
+  }
+
+  /* Ce qui flotte : surface, border, radius-md (dialogue radius-lg), shadow-pop. */
+  :is(
+      [data-slot="dropdown-menu-content"],
+      [data-slot="dropdown-menu-sub-content"],
+      [data-slot="context-menu-content"],
+      [data-slot="context-menu-sub-content"],
+      [data-slot="menubar-content"],
+      [data-slot="select-content"],
+      [data-slot="popover-content"],
+      [data-slot="hover-card-content"],
+      [data-slot="command"]
+    ) {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-pop);
+  }
+  :is([data-slot="dropdown-menu-content"], [data-slot="dropdown-menu-sub-content"], [data-slot="context-menu-content"], [data-slot="select-content"]) {
+    padding: var(--space-1);
+  }
+  :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"]) {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-pop);
+  }
+  :is(
+      [data-slot="dropdown-menu-item"],
+      [data-slot="dropdown-menu-checkbox-item"],
+      [data-slot="dropdown-menu-radio-item"],
+      [data-slot="dropdown-menu-sub-trigger"],
+      [data-slot="context-menu-item"],
+      [data-slot="select-item"],
+      [data-slot="command-item"]
+    ) {
+    min-height: var(--control-md);
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: var(--radius-sm);
+    font-size: var(--type-body-size);
+  }
+  :is([data-slot="dropdown-menu-label"], [data-slot="select-label"], [data-slot="context-menu-label"]) {
+    font-size: var(--type-eyebrow-size);
+    line-height: var(--type-eyebrow-line);
+    font-weight: var(--type-eyebrow-weight);
+    letter-spacing: var(--type-eyebrow-tracking);
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  :is([data-slot="dropdown-menu-shortcut"], [data-slot="context-menu-shortcut"], [data-slot="command-shortcut"]) {
+    font-family: var(--font-mono);
+    font-size: var(--type-eyebrow-size);
+    letter-spacing: 0;
+    color: var(--text-faint);
+  }
+  :is([data-slot="dropdown-menu-item"], [data-slot="context-menu-item"])[data-variant="destructive"] {
+    color: var(--danger);
+  }
+
+  /* Onglets : piste segmentée Zinc (sauf la variante « line » de shadcn). */
+  [data-slot="tabs-list"]:not([data-variant="line"]) {
+    height: auto;
+    gap: 2px;
+    padding: 3px;
+    border: 0;
+    border-radius: var(--radius-md);
+    background: var(--surface-muted);
+  }
+  [data-slot="tabs-list"]:not([data-variant="line"]) [data-slot="tabs-trigger"] {
+    flex: none;
+    height: calc(var(--control-md) - 6px);
+    padding: 0 var(--space-3);
+    border: 0;
+    border-radius: calc(var(--radius-md) - 3px);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: var(--type-label-size);
+    font-weight: var(--type-label-weight);
+    box-shadow: none;
+  }
+  [data-slot="tabs-list"]:not([data-variant="line"]) [data-slot="tabs-trigger"]:is([data-state="active"], [data-active]) {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow:
+      0 0 0 1px var(--border),
+      var(--shadow-sm);
+  }
+  [data-slot="tabs-trigger"]:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 1px;
+    box-shadow: none;
+  }
+
+  /* Cartes : surface-subtle, border, radius-md, sans ombre, padding space-4. */
+  [data-slot="card"] {
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+    background: var(--surface-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: none;
+  }
+  [data-slot="card"] > :is([data-slot="card-header"], [data-slot="card-content"], [data-slot="card-footer"]) {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+  [data-slot="card-title"] {
+    font-size: var(--type-title-size);
+    line-height: var(--type-title-line);
+    font-weight: var(--type-title-weight);
+  }
+  [data-slot="card-description"] {
+    font-size: var(--type-body-size);
+    color: var(--text-muted);
+  }
+
+  /* Badge : forme d'un tag Zinc (radius-xs, tag-height, caption). */
+  [data-slot="badge"] {
+    height: var(--tag-height);
+    padding: 0 var(--space-1);
+    border-radius: var(--radius-xs);
+    font-size: var(--type-caption-size);
+    line-height: var(--type-caption-line);
+  }
+
+  /* Case et interrupteur : mesures et couleurs Zinc. */
+  [data-slot="checkbox"] {
+    width: var(--checkbox-size);
+    height: var(--checkbox-size);
+    border: 1px solid var(--border-control);
+    border-radius: var(--radius-xs);
+    background: var(--surface);
+    box-shadow: none;
+  }
+  [data-slot="checkbox"]:is([data-state="checked"], [data-state="indeterminate"], [data-checked]) {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--on-accent);
+  }
+  [data-slot="switch"] {
+    width: var(--switch-width);
+    height: var(--switch-height);
+    border: 1px solid var(--border-control);
+    border-radius: var(--radius-full);
+    background: var(--surface-muted);
+    box-shadow: none;
+  }
+  [data-slot="switch"]:is([data-state="checked"], [data-checked]) {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  [data-slot="switch-thumb"] {
+    width: calc(var(--switch-height) - 6px);
+    height: calc(var(--switch-height) - 6px);
+    background: var(--border-control);
+    translate: 2px 0;
+    transform: none;
+  }
+  [data-slot="switch"]:is([data-state="checked"], [data-checked]) [data-slot="switch-thumb"],
+  [data-slot="switch-thumb"]:is([data-state="checked"], [data-checked]) {
+    background: var(--on-accent);
+    translate: calc(var(--switch-width) - var(--switch-height) + 2px) 0;
+  }
+  :is([data-slot="checkbox"], [data-slot="switch"]):focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+    box-shadow: none;
+  }
+
+  /* Variantes de style : mêmes écarts que pour les composants Zinc. */
+  :is([data-variant="net"], [data-variant="tempere"]) [data-slot="card"] {
+    background: var(--surface);
+  }
+  [data-variant="tempere"] [data-slot="card"],
+  [data-variant="tempere"] :is([data-slot="button"], [data-slot$="-trigger"][data-variant][data-size]:not([data-slot="select-trigger"]))[data-variant="outline"] {
+    box-shadow: var(--shadow-sm);
+  }
+  [data-variant="tempere"] [data-slot="card-title"] {
+    font-family: var(--font-display);
+  }
+  [data-variant="tempere"] [data-slot="tabs-list"]:not([data-variant="line"]) {
+    border-radius: var(--radius-sm);
+  }
+  [data-variant="tempere"] [data-slot="tabs-list"]:not([data-variant="line"]) [data-slot="tabs-trigger"] {
+    border-radius: calc(var(--radius-sm) - 3px);
+  }
+  [data-variant="net"] [data-slot="tabs-list"]:not([data-variant="line"]) {
+    padding: 0;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-xs);
+    overflow: hidden;
+  }
+  [data-variant="net"] [data-slot="tabs-list"]:not([data-variant="line"]) [data-slot="tabs-trigger"] {
+    height: calc(var(--control-md) - 2px);
+    border-radius: 0;
+    border-right: 1px solid var(--border-strong);
+  }
+  [data-variant="net"] [data-slot="tabs-list"]:not([data-variant="line"]) [data-slot="tabs-trigger"]:last-child {
+    border-right: 0;
+  }
+  [data-variant="net"] [data-slot="tabs-list"]:not([data-variant="line"]) [data-slot="tabs-trigger"]:is([data-state="active"], [data-active]) {
+    background: var(--accent-soft);
+    box-shadow: inset 0 -2px 0 var(--accent);
+  }
+}

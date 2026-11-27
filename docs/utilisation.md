@@ -84,10 +84,16 @@ Le comportement et l'accessibilité viennent de Radix ; le style vient uniquemen
 
 ## La couche shadcn/ui
 
-`@zinc/ui/shadcn.css` branche les tokens sur les variables de shadcn (`--background`, `--primary`, `--muted`, `--input`, `--ring`, `--sidebar-*`, `--chart-*`…) et sur les utilitaires Tailwind (couleurs, coins, ombres, polices, `text-xs` / `text-sm`). Les composants shadcn existants prennent l'allure Zinc sans être réécrits.
+`@zinc/ui/shadcn.css` fait deux choses, pour que les composants shadcn existants deviennent des composants Zinc sans être réécrits :
 
+1. **Couleurs, coins, ombres, polices.** Les tokens sont branchés sur les variables de shadcn (`--background`, `--primary`, `--muted`, `--input`, `--ring`, `--sidebar-*`, `--chart-*`…) et sur les utilitaires Tailwind (`text-xs` / `text-sm` compris).
+2. **Mesures imposées.** Chaque composant shadcn v4 porte un attribut `data-slot` (`button`, `input`, `select-trigger`, `tabs-list`, `card`, `checkbox`, `switch`, `badge`, `dropdown-menu-item`, `dialog-content`…), et souvent `data-size` / `data-variant`. La couche s'en sert pour imposer les mesures Zinc, quelles que soient les classes du composant : boutons à `control-md` (`sm` → `control-sm`, `lg` → `control-lg`, icônes carrées), champs et listes à `control-md` avec contour `border-control` et focus Zinc, onglets segmentés, cartes `surface-subtle` en `radius-md` sans ombre, cases et interrupteurs aux tailles Zinc, menus et listes en `shadow-pop` avec items `control-md`, badges au gabarit d'un tag, variantes Net et Tempéré comprises. Ces règles sont dans une couche CSS déclarée après `utilities` : un `h-10` ou un `rounded-xl` passé en `className` à un composant shadcn ne change rien.
+
+- **Un bouton shadcn passé en `asChild`** à un déclencheur (`<DropdownMenuTrigger asChild><Button/></DropdownMenuTrigger>`) prend le `data-slot` du déclencheur : il est quand même reconnu, par ses `data-variant` et `data-size`.
+- **Variantes shadcn → Zinc.** `default` = bouton principal, `outline` = bouton secondaire, `ghost`, `destructive` (texte `on-danger`), `link` (texte `accent-text`).
+- **Composants shadcn sans `data-slot`** (installés avant la v4, comme le `packages/ui` actuel de Zorg) : la couche ne leur impose rien. Les remplacer par le composant Zinc équivalent, ou les mettre à jour avec la CLI shadcn.
 - **Une collision de nom.** Pour shadcn, `accent` est un fond de survol ; pour Zinc, c'est l'aplat. La variable `--accent` reste celle de Zinc ; l'utilitaire `bg-accent` pointe sur `surface-muted`. En Tailwind, l'aplat Zinc s'écrit `bg-primary`, et `text-primary` donne `accent-text` (lisible).
-- **Ce que la couche ne fait pas.** Les hauteurs (shadcn : 36 px, Zinc : 32 px) et la structure des composants shadcn restent les leurs. Pour la coquille, les boutons, les champs, les onglets et les cartes, préférer les composants Zinc ; garder shadcn pour ce que Zinc ne fournit pas (dialogue, popover, tooltip, command…).
+- La démo (vue « shadcn ») pose chaque composant shadcn à côté de son équivalent Zinc ; `bun run shots` mesure leurs hauteurs, largeurs et coins dans les trois styles et échoue au moindre écart.
 - Les tokens Zinc existent aussi sous leur nom en Tailwind : `bg-surface`, `bg-surface-subtle`, `text-text-muted`, `border-border-control`, `text-accent-text`, `h-control-md`, `w-sidebar`, `max-w-content`…
 - La variante `dark:` suit `.dark` et `[data-theme="dark"]`.
 
